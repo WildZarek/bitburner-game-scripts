@@ -1,0 +1,21 @@
+var server = "home";
+var script = "singlehack.js";
+
+if(args[0] != null)
+    server = args[0];
+if(args[1] != null)
+    script = args[1];
+
+var freeRam = getServerMaxRam(server) - getServerUsedRam(server);
+
+tprint("[*] Total RAM....: " + getServerMaxRam(server) + " GB.");
+tprint("[+] Available RAM: " + freeRam + " GB.");
+tprint("[-] Script RAM usage (per thread): " + getScriptRam(script) + " GB.");
+
+if (getServerMaxRam(server) >= 128) {
+    var threads = Math.floor(freeRam / getScriptRam(script)) - 20;
+    tprint("[>] " + threads + " possible threads.");
+} else {
+    var threads = Math.floor(freeRam / getScriptRam(script));
+    tprint("[>] " + threads + " possible threads.");
+}
